@@ -1,8 +1,9 @@
 const { imageHash }= require('image-hash');
-var stringSimilarity = require('string-similarity');
+const hamming = require('hamming-distance');
+require('dotenv').config();
 
 const promiseNewImg = new Promise((resolve, reject) => {
-  imageHash('D:\\Desktop\\Memehub bot\\1.png', 32, true, (error, data) => {
+  imageHash(process.env.IMG_A, 16, true, (error, data) => {
     if (error) 
       reject(error);
     resolve(data);
@@ -10,7 +11,7 @@ const promiseNewImg = new Promise((resolve, reject) => {
 });
 
 const promiseCompImg = new Promise((resolve, reject) => {
-  imageHash('D:\\Desktop\\Memehub bot\\3.png', 32, true, (error, data) => {
+  imageHash(process.env.IMG_B, 16, true, (error, data) => {
     if (error)
       reject(error);
     resolve(data); 
@@ -21,6 +22,6 @@ Promise.all([promiseNewImg, promiseCompImg]).then(([dataNewImg, dataCompImg]) =>
   console.log(dataNewImg);
   console.log(dataCompImg);
   
-  var similarity = stringSimilarity.compareTwoStrings(dataNewImg, dataCompImg); 
+  var similarity = hamming(Buffer.from(dataNewImg, 'hex'), Buffer.from(dataCompImg, 'hex')); 
   console.log(similarity);
 });
