@@ -12,6 +12,7 @@
     "dotenv": "^8.2.0",
     "hamming-distance": "^1.0.0",
     "image-hash": "^3.5.1",
+    "imghash": "0.0.6",
     "string-similarity": "^4.0.1"
   }
 }
